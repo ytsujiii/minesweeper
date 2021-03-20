@@ -30,7 +30,7 @@ export default function Game(props: Props): React.ReactElement {
     const [inGame, setInGame] = useState<boolean>(false);
     const [restSquareCount, setRestSquareCount] = useState<number>(0);
     const [firstClickedCoord, setFirstClickedCoord] = useState<Coord | null>(null);
-    const [squareStates, setSquareStates] = useState<Array<Array<SquareState>>>([]);
+    const [squareStates, setSquareStates] = useState<Array<Array<SquareState>> | null>(null);
     const onLeftClick = useCallback((e: React.MouseEvent<HTMLElement>, coord: Coord) => {
         if (!squareStates) {
             return;
@@ -154,6 +154,9 @@ export default function Game(props: Props): React.ReactElement {
         setSquareStates(stateArray);
     }, [field]);
     const onFinished = useCallback((finishStatus: FinishStatus) => {
+        if (!squareStates) {
+            return;
+        }
         const finalSquareStates = squareStates.slice();
         Array.from(Array(field.height), (_, i) => i).forEach((y) => {
             Array.from(Array(field.width), (_, i) => i).forEach((x) => {
@@ -179,7 +182,7 @@ export default function Game(props: Props): React.ReactElement {
         init();
     }, [field]);
     useEffect(() => {
-        if (!firstClickedCoord) {
+        if (!firstClickedCoord || !squareStates) {
             return;
         }
         openSquare(firstClickedCoord, squareStates);
