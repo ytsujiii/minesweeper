@@ -28,9 +28,9 @@ export default function Game(props: Props): React.ReactElement {
     const { field } = props;
     const [finishMessage, setFinishMessage] = useState<string | null>(null);
     const [inGame, setInGame] = useState<boolean>(false);
-    const [restSquareCount, setRestSquareCount] = useState<number | null>(null);
+    const [restSquareCount, setRestSquareCount] = useState<number>(0);
     const [firstClickedCoord, setFirstClickedCoord] = useState<Coord | null>(null);
-    const [squareStates, setSquareStates] = useState<Array<Array<SquareState>> | null>(null);
+    const [squareStates, setSquareStates] = useState<Array<Array<SquareState>>>([]);
     const onLeftClick = useCallback((e: React.MouseEvent<HTMLElement>, coord: Coord) => {
         if (!squareStates) {
             return;

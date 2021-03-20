@@ -19,10 +19,13 @@ export default function App(): React.ReactElement {
         setAnchorEl(null);
         setField(getFieldData(newDifficulty));
     }, []);
+    const handleClick = (e) => {
+        setAnchorEl(e.currentTarget);
+    };
     return (
         <>
             <AppBar position="static" color="default">
-                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e) => setAnchorEl(e.currentTarget)}>
+                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                     Difficulty
                 </Button>
                 <Menu
